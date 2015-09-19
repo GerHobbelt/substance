@@ -143,7 +143,8 @@ Document.Prototype = function() {
     // console.log('Starting the transaction took', Date.now() - time);
     try {
       // time = Date.now();
-      var result = transformation(tx);
+      // right now there are no arguments
+      var result = transformation(tx, {});
       // console.log('Executing the transformation took', Date.now() - time);
       var afterState = {};
       // only keys that are in the beforeState can be in the afterState
