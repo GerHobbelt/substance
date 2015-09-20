@@ -156,15 +156,16 @@ AbstractDocument.Prototype = function() {
       result.push(text.substring(sel.start.offset, sel.end.offset));
     } else if (sel.isContainerSelection()) {
       var container = this.get(sel.containerId);
-      var components = container.getComponentsForRange(sel.range);
-      for (var i = 0; i < components.length; i++) {
-        var comp = components[i];
-        text = this.get(comp.path);
-        if (components.length === 1) {
+      var range = sel.range;
+      var paths = container.getPathRange(range.start.path, range.end.path);
+      for (var i = 0; i < paths.length; i++) {
+        var path = paths[i];
+        text = this.get(path);
+        if (paths.length === 1) {
           result.push(text.substring(sel.start.offset, sel.end.offset));
         } else if (i===0) {
           result.push(text.substring(sel.start.offset));
-        } else if (i===components.length-1) {
+        } else if (i===paths.length-1) {
           result.push(text.substring(0, sel.end.offset));
         } else {
           result.push(text);
