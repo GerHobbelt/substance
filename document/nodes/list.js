@@ -3,6 +3,7 @@
 var _ = require('../../basics/helpers');
 var DocumentNode = require('../node');
 var ListItem = require('./list_item');
+var ParentNodeMixin = require('../parent_node_mixin');
 
 // Note: we have chosen a semi-hierarchical model for lists
 // consisting of one list wrapper with many list items.
@@ -10,13 +11,16 @@ var ListItem = require('./list_item');
 // This will make life easier for editing.
 // The wrapping list node helps us to create a scope for rendering, and
 // import/export.
-var List = DocumentNode.extend({
+var List = DocumentNode.extend(ParentNodeMixin.prototype, {
   displayName: "List",
   name: "list",
-
   properties: {
     ordered: "boolean",
     items: ["array", "id"]
+  },
+  didInitialize: function() {
+    // call mix-in initializer
+    ParentNodeMixin.call(this, 'items');
   },
 
   getItems: function() {
@@ -25,6 +29,7 @@ var List = DocumentNode.extend({
       return doc.get(id);
     }, this);
   },
+
   removeItem: function(id) {
     var doc = this.getDocument();
     var offset = this.items.indexOf(id);
@@ -38,6 +43,7 @@ var List = DocumentNode.extend({
     var doc = this.getDocument();
     doc.update([this.id, 'items'], { "insert": { offset: offset, value: id } });
   },
+
 });
 
 List.static.components = ['items'];

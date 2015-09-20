@@ -13,6 +13,12 @@ var ListItem = Node.extend({
 
 ListItem.static.components = ['content'];
 
+ListItem.static.defaultProperties = {
+  level: 1,
+  orderered: false,
+  content: ""
+};
+
 // HtmlImporter
 
 ListItem.static.fromHtml = function($el, converter) {

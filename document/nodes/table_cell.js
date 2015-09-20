@@ -21,7 +21,10 @@ var TableCell = Node.extend({
 
 TableCell.static.components = ['content'];
 
-// HtmlImporter
+TableCell.static.defaultProperties = {
+  cellType: "td",
+  content: ""
+};
 
 TableCell.static.matchElement = function($el) {
   return $el.is('th, td');
