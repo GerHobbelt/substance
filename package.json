@@ -14,7 +14,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "lodash": "3.3.1"
+    "lodash": "4.17.20"
   },
   "devDependencies": {
     "browserify": "^10.1.3",
